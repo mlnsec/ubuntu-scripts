@@ -42,26 +42,32 @@ sudo apt install -y libreoffice-style-yaru libreoffice-writer libreoffice-calc l
 sudo apt install -y gnome-tweaks gnome-shell-extension-manager
 
 # Bare minimum
-sudo apt install -y ffmpeg ffmpegthumbnailer emacs vim vlc yt-dlp deja-dup git curl fd-find fzf ripgrep cherrytree transmission nextcloud-desktop
-
-# Add "virtualbox steam shotwell" for Desktop computer
+sudo apt install -y ffmpeg ffmpegthumbnailer emacs vim vlc yt-dlp deja-dup git curl fd-find fzf ripgrep cherrytree nextcloud-desktop virtualbox steam shotwell qbittorrent
 
 # I have no use for mpv which is pulled with yt-dlp
 sudo apt autoremove --purge -y mpv
 
-# For desktop and laptop
-
 # Spotify deb with correct instructions
 curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo gpg --dearmor -o /usr/share/keyrings/spotify-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/spotify-archive-keyring.gpg] http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt update
+sudo apt install -y spotify-client
 
 # Extra applications
 # I like everything to be a deb package
-
-mkdir extradebs && cd extradebs
 # To be improved to get the latest release...
+
+mkdir extradebs
+cd extradebs
 wget https://github.com/obsidianmd/obsidian-releases/releases/download/v1.0.3/obsidian_1.0.3_amd64.deb
-wget https://mullvad.net/download/app/deb/latest/ -O mullvad.deb
-sudo apt install -y ./*.deb
+wget https://mullvad.net/media/app/MullvadVPN-2022.5_amd64.deb
+sudo dpkg -i ./*.deb
+
+# Dash to Dock, at the bottom, auto-hide
+gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+gsettings set org.gnome.shell.extensions.dash-to-dock dock-position "BOTTOM"
+gsettings set org.gnome.shell.extensions.dash-to-dock intellihide true
+# gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts false
+# gsettings set org.gnome.shell.extensions.dash-to-dock click-action 'minimize'
 
 echo -e "\e[32;1mAll done! Hopefully :)\e[m\n"
